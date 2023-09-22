@@ -21,7 +21,13 @@ fetchBreeds()
     const markupSelect = breeds
       .map(({ id, name }) => `<option value="${id}">${name}</option>`)
       .join('');
-const select = new SlimSelect(refs.breedSelect);
+
+    const select = new SlimSelect({
+  select: 'refs.breedSelect',
+ 
+});
+    
+
     refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
     refs.loader.classList.remove("visible");
     refs.loader.classList.add("hidden");
@@ -30,6 +36,8 @@ const select = new SlimSelect(refs.breedSelect);
   })
   .catch(error => {
     console.error(error);
+    refs.loader.classList.remove("visible");
+     refs.loader.classList.add("hidden");
     refs.error.classList.remove("hidden");
     refs.error.classList.add("visible");
      
@@ -77,8 +85,10 @@ function onchange(event) {
       
     })
     .catch(error => {
-        console.error(error);
-       refs.error.classList.remove("hidden");
+      console.error(error);
+        refs.loader.classList.remove("visible");
+     refs.loader.classList.add("hidden");
+    refs.error.classList.remove("hidden");
     refs.error.classList.add("visible");
     });
 }
