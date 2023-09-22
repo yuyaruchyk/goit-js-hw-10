@@ -23,8 +23,7 @@ fetchBreeds()
       .join('');
 const select = new SlimSelect(refs.breedSelect);
     refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
-    refs.loader.classList.remove("visible");
-    refs.loader.classList.add("hiden");
+   
     
   })
   .catch(error => {
@@ -67,7 +66,8 @@ function onchange(event) {
       const markup = liArray.join('');
 
       refs.catInfo.innerHTML = markup;
-
+ refs.loader.classList.remove("visible");
+    refs.loader.classList.add("hiden");
       
     })
     .catch(error => {
