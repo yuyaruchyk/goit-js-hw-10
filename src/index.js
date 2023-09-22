@@ -9,10 +9,10 @@ const refs = {
     loader: document.querySelector('.loader'),
   error: document.querySelector('.error'),
 };
+refs.error.classList.add("hidden");
 
-refs.loader.classList.add("visible");
+refs.loader.classList.add("visible"); 
 
-refs.error.classList.add("hidden")
 
 fetchBreeds()
 
@@ -23,12 +23,16 @@ fetchBreeds()
       .join('');
 const select = new SlimSelect(refs.breedSelect);
     refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
+    refs.loader.classList.remove("visible");
+    refs.loader.classList.add("hidden");
    
     
   })
   .catch(error => {
     console.error(error);
+    refs.error.classList.remove("hidden");
     refs.error.classList.add("visible");
+     
   });
 
 refs.breedSelect.addEventListener('change', onchange);
@@ -41,7 +45,8 @@ function onchange(event) {
     
   const breedId = refs.breedSelect.value;
 
-  
+  refs.loader.classList.remove("hidden");
+    refs.loader.classList.add("visible");
 
   fetchCatByBreed(breedId)
       .then(catInfo => {
@@ -66,12 +71,14 @@ function onchange(event) {
       const markup = liArray.join('');
 
       refs.catInfo.innerHTML = markup;
- refs.loader.classList.remove("visible");
-    refs.loader.classList.add("hiden");
+ 
+      refs.loader.classList.remove("visible");
+    refs.loader.classList.add("hidden");
       
     })
     .catch(error => {
         console.error(error);
-       
+       refs.error.classList.remove("hidden");
+    refs.error.classList.add("visible");
     });
 }
