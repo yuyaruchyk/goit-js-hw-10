@@ -32,16 +32,46 @@ refs.breedSelect.addEventListener("change", () => {
 
     fetchCatByBreed(breedId)
         .then(catInfo => {
-            const { url, breeds } = catInfo; // Destructure properties correctly
+            const { url, breeds } = catInfo; 
             const catBreeds = breeds.map(breed => ({
-                name: breed.name,          // Assuming breed has a 'name' property
-                description: breed.description,  // Assuming breed has a 'description' property
-                temperament: breed.temperament  // Assuming breed has a 'temperament' property
+                name: breed.name,         
+                description: breed.description, 
+                temperament: breed.temperament 
             }));
 
             console.log(catBreeds)
+const catArray = breeds.map(({ name, description, temperament }) => {
+  return `
+   
+      <img 
+        src="${url}"
+        alt="${name}"
+      />
+
+      <h1>${name}</h1>
+      <p>${description}</p>
+      <h2>Temperament: ${temperament}</h2>
+
+
+
     
-            // Further processing or displaying of catBreeds can be done here
+  `;
+
+  
+});
+
+
+
+
+
+const markup = catArray.join('');
+
+refs.catInfo.insertAdjacentHTML("afterbegin", markup);
+
+  
+
+
+         
         })
         .catch(error => {
             console.error(error);
