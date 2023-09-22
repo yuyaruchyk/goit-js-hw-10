@@ -1,29 +1,20 @@
 export { fetchBreeds };
-    
+    import axios from 'axios';
+
 function fetchBreeds() {
-      
-  return fetch('https://api.thecatapi.com/v1/breeds')
+  const apiUrl = 'https://api.thecatapi.com/v1/breeds';
+
+ 
+
+  return axios.get(apiUrl)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(breeds => {
-      
-      const breedList = breeds.map(breed => ({
-        value: breed.id,
-        text: breed.name,
-      }));
-      return breedList;
+      console.log(response.data);
+      return response.data; 
     })
     .catch(error => {
       console.error(error);
+      throw error; 
     });
-};
-
-
-
-
-
-
+}
+      
+  
