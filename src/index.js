@@ -9,74 +9,48 @@ const refs = {
 
 fetchBreeds()
   .then(breeds => {
-    const breedList = breeds.map(breed => ({
-      value: breed.id,
-      text: breed.name,
-    }));
+    const markupSelect = breeds
+      .map(({ id, name }) => `<option value="${id}">${name}</option>`)
+      .join('');
 
-    breedList.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option.value;
-      optionElement.textContent = option.text;
-      refs.breedSelect.appendChild(optionElement);
-    });
+    refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
   })
   .catch(error => {
     console.error(error);
   });
 
+refs.breedSelect.addEventListener('change', onchange);
 
+function onchange(event) {
+  const breedId = refs.breedSelect.value;
 
-refs.breedSelect.addEventListener("change", () => {
-    const breedId = refs.breedSelect.value;
+  console.log(breedId);
 
-    fetchCatByBreed(breedId)
-        .then(catInfo => {
-            const { url, breeds } = catInfo; 
-            const catBreeds = breeds.map(breed => ({
-                name: breed.name,         
-                description: breed.description, 
-                temperament: breed.temperament 
-            }));
-
-            console.log(catBreeds)
-const catArray = breeds.map(({ name, description, temperament }) => {
-  return `
-   
-      <img 
-        src="${url}"
-        alt="${name}"
-      />
-
-      <h1>${name}</h1>
-      <p>${description}</p>
-      <h2>Temperament: ${temperament}</h2>
-
-
-
-    
-  `;
-
-  
-});
-
-
-
-
-
-const markup = catArray.join('');
-
-refs.catInfo.insertAdjacentHTML("afterbegin", markup);
-
-  
-
-
-         
-        })
-        .catch(error => {
-            console.error(error);
+  fetchCatByBreed(breedId)
+    .then(catInfo => {
+      const liArray = catInfo.map(cat => {
+        const { url, breeds } = cat;
+        const breedItems = breeds.map(breed => {
+          return `
+            <div>
+              <img src="${url}" alt="${breed.name}">
+              <h1>${breed.name}</h1>
+              <p>${breed.description}</p>
+              <p>${breed.temperament}</p>
+            </div>
+          `;
         });
-});
 
- 
+        return breedItems.join('');
+      });
 
+      const markup = liArray.join('');
+
+      refs.catInfo.innerHTML = markup;
+
+      
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
