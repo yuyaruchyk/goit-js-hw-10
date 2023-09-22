@@ -10,28 +10,26 @@ const refs = {
   error: document.querySelector('.error'),
 };
 
+refs.loader.classList.add("visible");
 
-
-
+refs.error.classList.add("hidden")
 
 fetchBreeds()
+
   .then(breeds => {
+    
     const markupSelect = breeds
       .map(({ id, name }) => `<option value="${id}">${name}</option>`)
       .join('');
-
+const select = new SlimSelect(refs.breedSelect);
     refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
-
-    
-    const select = new SlimSelect(refs.breedSelect);
-
-      
-      
+    refs.loader.classList.remove("visible");
+    refs.loader.classList.add("hiden");
     
   })
   .catch(error => {
     console.error(error);
-   
+    refs.error.classList.add("visible");
   });
 
 refs.breedSelect.addEventListener('change', onchange);
@@ -40,7 +38,7 @@ refs.breedSelect.addEventListener('change', onchange);
 
 function onchange(event) {
 
-    
+   
     
   const breedId = refs.breedSelect.value;
 

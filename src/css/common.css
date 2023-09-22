@@ -17,10 +17,15 @@ img {
   max-width: 100%;
 }
 
-
-.loader {
-  color: aqua;
+.hidden {
+  display: none;
 }
+.visible {
+  display: block;
+}
+
+
+
 
 
 
