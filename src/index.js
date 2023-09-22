@@ -28,22 +28,25 @@ fetchBreeds()
 
 
 refs.breedSelect.addEventListener("change", () => {
-  const breedId = refs.breedSelect.value;
+    const breedId = refs.breedSelect.value;
 
-  // Call fetchCatByBreed with the selected breed ID
-  fetchCatByBreed(breedId)
-    .then(catInfo => {
-      console.log(catInfo);
-    })
-    .catch(error => {
-      // Handle any errors here
-      console.error(error);
-    });
-});
-      
-     
- 
-  
+    fetchCatByBreed(breedId)
+        .then(catInfo => {
+            const { url, breeds } = catInfo; // Destructure properties correctly
+            const catBreeds = breeds.map(breed => ({
+                name: breed.name,          // Assuming breed has a 'name' property
+                description: breed.description,  // Assuming breed has a 'description' property
+                temperament: breed.temperament  // Assuming breed has a 'temperament' property
+            }));
 
+            console.log(catBreeds)
     
+            // Further processing or displaying of catBreeds can be done here
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
+
+ 
 
