@@ -9,22 +9,31 @@ const refs = {
   loader: document.querySelector('.loader'),
   error: document.querySelector('.error'),
 };
-refs.error.classList.add('hidden');
 
-refs.loader.classList.add('visible');
+document.addEventListener('DOMContentLoaded', onLoading);
+
+function onLoading(event) {
+  refs.error.classList.add('hidden');
+  refs.loader.classList.add('visible');
+  
+}
+
 
 
 
 fetchBreeds()
   .then(breeds => {
+    const firstElement = `<option>Please, select a cat</option>`;
+    refs.breedSelect.insertAdjacentHTML('afterbegin', firstElement);
+    
     const markupSelect = breeds
-      .map(({ id, name }) => `<option value="${id}">${name}</option>`)
+      .map(({ id, name }) => 
+        `<option value="${id}">${name}</option>`)
       .join('');
 
-    const select = new SlimSelect({
-      select: 'refs.breedSelect',
-    });
-
+   
+    
+   
     refs.breedSelect.insertAdjacentHTML('afterbegin', markupSelect);
     refs.loader.classList.remove('visible');
     refs.loader.classList.add('hidden');
@@ -44,6 +53,7 @@ refs.breedSelect.addEventListener('change', onchange);
 
 function onchange(event) {
   const breedId = refs.breedSelect.value;
+   
 
   refs.loader.classList.remove('hidden');
   refs.loader.classList.add('visible');
@@ -56,12 +66,13 @@ function onchange(event) {
           return `
     <div class="image-container">
         
-        <img class="cat-image" src="${url}" alt="${breed.name} width=30px">
+        <img class="cat-image" src="${url}" alt="${breed.name}">
         <div class="text-container"> 
         <h1 class="title">${breed.name}</h1>
         <p class="main-text">${breed.description}</p>
         <p class="secondary-title">Temperament: ${breed.temperament}</p>
         </div>
+
     </div>
 `;
         });
