@@ -56,7 +56,7 @@ function onchange(event) {
           return `
     <div class="image-container">
         
-        <img class="cat-image" src="${url}" alt="${breed.name}">
+        <img class="cat-image" src="${url}" alt="${breed.name} width=30px">
         <div class="text-container"> 
         <h1 class="title">${breed.name}</h1>
         <p class="main-text">${breed.description}</p>
