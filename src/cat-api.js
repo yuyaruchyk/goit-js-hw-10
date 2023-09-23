@@ -1,4 +1,5 @@
 import axios from 'axios';
+export { fetchBreeds, fetchCatByBreed };
 
 axios.defaults.headers.common['x-api-key'] = 'live_eekCqlvlN5LRfFZcBPx3LID62ACJZ9Cut9F5j7tSYeMolG3b7goIiQ9jciXmnmHT';
 
@@ -28,4 +29,3 @@ function fetchCatByBreed(breedId) {
     });
 }
 
-export { fetchBreeds, fetchCatByBreed };

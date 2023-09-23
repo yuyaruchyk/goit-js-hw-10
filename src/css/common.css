@@ -24,6 +24,48 @@ img {
   display: block;
 }
 
+.breed-select {
+  margin-bottom: 50px;
+  width: auto;
+  height: 20px;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+}
+
+.cat-image {
+  width: 360px;
+  
+}
+
+.title {
+    text-align: left;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 1.2;
+}
+
+.secondary-title {
+  text-align: left;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+
+.main-text
+{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+
+}
+
 
 
 
