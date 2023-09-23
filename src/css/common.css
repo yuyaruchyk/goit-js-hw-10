@@ -98,6 +98,10 @@ img {
     transform: rotate(360deg);
   }
 }
+.error {
+  color:#FF3D00;
+  font-size: 20px;
+}
 
 .hidden {
   display: none;
