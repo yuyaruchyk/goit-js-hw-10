@@ -28,4 +28,3 @@ function fetchCatByBreed(breedId) {
       return Promise.reject(error);
     });
 }
-

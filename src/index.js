@@ -60,38 +60,49 @@ function onchange(event) {
 
   fetchCatByBreed(breedId)
     .then(catInfo => {
-      const liArray = catInfo.map(cat => {
-        const { url, breeds } = cat;
-        const breedItems = breeds.map(breed => {
-          return `
-    <div class="image-container">
+      if (catInfo.length === 0) {
         
-        <img class="cat-image" src="${url}" alt="${breed.name}">
-        <div class="text-container"> 
-        <h1 class="title">${breed.name}</h1>
-        <p class="main-text">${breed.description}</p>
-        <p class="secondary-title">Temperament: ${breed.temperament}</p>
-        </div>
+        refs.loader.classList.remove('visible');
+        refs.loader.classList.add('hidden');
+        refs.catInfo.classList.add('hidden');
+        refs.error.textContent = 'No cats found for this breed.';
+        refs.error.classList.remove('hidden');
+      } else {
 
-    </div>
-`;
+        refs.error.classList.add('hidden');
+        refs.catInfo.classList.remove('hidden');
+
+       
+        const liArray = catInfo.map(cat => {
+          const { url, breeds } = cat;
+          const breedItems = breeds.map(breed => {
+            return `
+              <div class="image-container">
+                <img class="cat-image" src="${url}" alt="${breed.name}">
+                <div class="text-container"> 
+                  <h1 class="title">${breed.name}</h1>
+                  <p class="main-text">${breed.description}</p>
+                  <p class="secondary-title">Temperament: ${breed.temperament}</p>
+                </div>
+              </div>
+            `;
+          });
+
+          return breedItems.join('');
         });
 
-        return breedItems.join('');
-      });
+        const markup = liArray.join('');
+        refs.catInfo.innerHTML = markup;
 
-      const markup = liArray.join('');
-
-      refs.catInfo.innerHTML = markup;
-
-      refs.loader.classList.remove('visible');
-      refs.loader.classList.add('hidden');
+        refs.loader.classList.remove('visible');
+        refs.loader.classList.add('hidden');
+      }
     })
     .catch(error => {
       console.error(error);
       refs.loader.classList.remove('visible');
       refs.loader.classList.add('hidden');
+      refs.error.textContent = 'An error occurred while fetching cat information.';
       refs.error.classList.remove('hidden');
-      refs.error.classList.add('visible');
     });
 }
