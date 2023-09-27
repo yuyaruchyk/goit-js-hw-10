@@ -11,7 +11,7 @@ function fetchBreeds() {
       return response.data;
     })
     .catch(error => {
-      console.error('Error fetching breeds:', error);
+      console.error('Error fetching breeds', error);
       return Promise.reject(error);
     });
 }
@@ -24,7 +24,7 @@ function fetchCatByBreed(breedId) {
       return response.data;
     })
     .catch(error => {
-      console.error('Error fetching cat by breed:', error);
+      console.error('Error fetching cat by breed', error);
       return Promise.reject(error);
     });
 }
